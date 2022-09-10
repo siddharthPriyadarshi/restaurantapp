@@ -2,17 +2,28 @@ import React from 'react'
 import { MdShoppingBasket } from 'react-icons/md'
 import { motion } from "framer-motion";
 
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { app } from '../firebase.config';
+
 import Logo from '../img/logo.png';
 import Avatar from '../img/avatar.png';
 import { Link } from 'react-router-dom';
 
 
 const Header = () => {
+    const firebaseAuth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const login = async () => {
+        const response = await signInWithPopup( firebaseAuth, provider );
+        console.log(response);
+    };
+
     return (
         <header className="fixed w-screen bg-slate-300 p-6 px-16 ">
             {/* desktop and tablet */}
             <div className="hidden md:flex w-full p-4 items-center justify-between">
-                <Link to = {"/"} className='flex items-center gap-2'>
+                <Link to={"/"} className='flex items-center gap-2'>
                     <img src={Logo} className="w-10 object-cover" alt="logo" />
                     <p className=' = "text-headingColor text-xl font-bold'>City</p>
                 </Link>
@@ -31,11 +42,15 @@ const Header = () => {
                             <p className="text-xs text-white font-semibold">2</p>
                         </div>
                     </div>
-                    <motion.img whileTap = {{ scale: 0.6 }}
-                        src = {Avatar}
-                        className="w-10 min-w[40px] h-10 min-h[40px] drop-shadow-2xl cursor-pointer"
-                        alt="userprofile"
-                    />
+
+                    <div className = "relative">
+                        <motion.img whileTap={{ scale: 0.6 }}
+                            src={Avatar}
+                            className="w-10 min-w[40px] h-10 min-h[40px] drop-shadow-2xl cursor-pointer"
+                            alt="userprofile"
+                            onClick = {login}
+                        />
+                    </div>
 
                 </div>
             </div>
