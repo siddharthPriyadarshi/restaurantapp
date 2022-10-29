@@ -127,7 +127,7 @@ const Header = () => {
                                     <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out hover:bg-slate-100 px-4 py-2">Service</li>
                                     <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out hover:bg-slate-100 px-4 py-2">Home</li>
                                 </ul>
-                                <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base">Logout <MdLogout /></p>
+                                <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base justify-center">Logout <MdLogout /></p>
 
 
 
