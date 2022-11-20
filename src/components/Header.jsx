@@ -107,10 +107,18 @@ const Header = () => {
             {/*Mobile View */}
             <div className="flex md:hidden p-4 items-center justify-between">
                 {/* Navabar Logo */}
+                <div className='relative flex items-center'>
+                        <MdShoppingBasket className="text-textColor text-2xl cursor-pointer" />
+                        <div className=" absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
+                            <p className="text-xs text-white font-semibold">2</p>
+                        </div>
+                </div>
+                
                 <Link to={"/"} className='flex items-center gap-2'>
                     <img src={Logo} className="w-10 object-cover" alt="logo" />
                     <p className=' = "text-headingColor text-xl font-bold'>City</p>
                 </Link>
+
 
                 {/* User logi button for google auth pop */}
                 <div className="relative">
