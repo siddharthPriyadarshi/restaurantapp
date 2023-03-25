@@ -33,3 +33,43 @@ export const heroData = [
     imageSrc: Fi1,
   },
 ]
+
+
+export const categories = [
+  {
+    id: 1,
+    name: 'Chicken',
+    urlParamName: "chicken",
+  },
+  {
+    id: 2,
+    name: 'Curry',
+    urlParamName: "curry",
+  },
+  {
+    id: 3,
+    name: 'Rice',
+    urlParamName: "Rice",
+  },
+  {
+    id: 4,
+    name: 'Fish',
+    urlParamName: "fish",
+  },
+  {
+    id: 5,
+    name: 'Fruits',
+    urlParamName: "Fruits",
+  },
+  {
+    id: 6,
+    name: 'IceCreams',
+    urlParamName: "icecreams",
+  },
+  {
+    id: 7,
+    name: 'Soft Drinks',
+    urlParamName: "Soft Drinks",
+  },
+];
+ 
