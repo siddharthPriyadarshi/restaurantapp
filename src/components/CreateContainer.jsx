@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import {
-  MdFastfood,
-  MdCloudUpload,
-  MdDelete,
-  MdFoodBank,
-  MdAttachMoney,
-} from 'react-icons/md'
+import { MdFastfood, MdCloudUpload, MdDelete, MdFoodBank } from 'react-icons/md'
+
+import { TbCurrencyRupee } from 'react-icons/tb'
 import Loader from './Loader'
 import { categories } from '../utils/data'
 import {
@@ -105,6 +101,7 @@ const CreateContainer = () => {
           category: category,
           qty: 1,
           price: price,
+          calories: calories,
         }
 
         saveItem(data)
@@ -116,7 +113,7 @@ const CreateContainer = () => {
         setAlertStatus('success')
         clearData()
 
-        fetchData();
+        fetchData()
 
         setTimeout(() => {
           setFields(false)
@@ -139,9 +136,8 @@ const CreateContainer = () => {
     setImageAsset(null)
     setCalories('')
     setPrice('')
-    setCalories('select Category')
+    setCategory('select Category')
   }
-
 
   const fetchData = async () => {
     await getAllFoodItems().then((data) => {
@@ -264,7 +260,7 @@ const CreateContainer = () => {
           </div>
 
           <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-            <MdAttachMoney className="text-gray-700 text-2xl" />
+            <TbCurrencyRupee className="text-gray-700 text-2xl" />
             <input
               type="text"
               value={price}
