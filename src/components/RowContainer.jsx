@@ -1,13 +1,20 @@
+import { connectStorageEmulator } from 'firebase/storage'
 import { motion } from 'framer-motion'
-import React, { useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { MdShoppingBasket } from 'react-icons/md'
 
-const RowContainer = ({ flag, data }) => {
+const RowContainer = ({ flag, data, scrollValue }) => {
   console.log('Row Container Data: ', data)
+  const scrollContainer = useRef()
+  useEffect(() => {
+    scrollContainer.current.scrollLeft += scrollValue
+  }, [scrollValue])
+
   return (
     <>
       <div
-        className={`bg-rowBg w-full my-12 flex items-center gap-5 ${
+        ref={scrollContainer}
+        className={`bg-rowBg w-full my-12 flex items-center gap-5 scroll-smooth ${
           flag
             ? 'overflow-x-scroll scrollbar-none'
             : 'overflow-x-hidden flex-wrap justify-around'
@@ -34,7 +41,9 @@ const RowContainer = ({ flag, data }) => {
                 <p className="text-textColor mt-1 text-base font-semibold md:text-lg">
                   {item.title}
                 </p>
-                <p className="mt-1 text-sm text-gray-500">{item?.calories} calories</p>
+                <p className="mt-1 text-sm text-gray-500">
+                  {item?.calories} calories
+                </p>
                 <div className="flex items-center gap-4 ">
                   <p className="text-lg text-headingColor font-semibold ">
                     <span className="text-sm text-red-500">₹</span>
