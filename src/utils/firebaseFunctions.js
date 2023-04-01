@@ -14,6 +14,7 @@ export const getAllFoodItems = async ()=>{
         query(collection(firestore, "foodItems"), orderBy("id", "desc"))
     );
     console.log("Items: ", items);
+    console.debug("Food items fetched successfully");
 
     return items.docs.map((doc)=> doc.data());
 }

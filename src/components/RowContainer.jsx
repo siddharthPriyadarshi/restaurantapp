@@ -1,14 +1,14 @@
-import { connectStorageEmulator } from 'firebase/storage'
 import { motion } from 'framer-motion'
 import React, { useEffect, useRef } from 'react'
 import { MdShoppingBasket } from 'react-icons/md'
 
-const RowContainer = ({ flag, data, scrollValue }) => {
+const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
   console.log('Row Container Data: ', data)
   const scrollContainer = useRef()
-  useEffect(() => {
-    scrollContainer.current.scrollLeft += scrollValue
-  }, [scrollValue])
+
+  useEffect(() => scrollContainer.current.scrollLeft += scrollValue, [
+    scrollValue,
+  ])
 
   return (
     <>
@@ -22,13 +22,16 @@ const RowContainer = ({ flag, data, scrollValue }) => {
       >
         {data &&
           data.map((item) => (
-            <div className="bg-cardOverlay min-w-[300px] md:min-w-[340px]  rounded-lg p-2 w-300 md:w-340 drop-shadow-lg shadow-lg backdrop-blur-lg my-12">
+            <div
+              key={item?.id}
+              className="bg-cardOverlay  w-[275px] min-w-[275px] md:min-w-[300px]  rounded-lg py-2 px-4 md:w-300 drop-shadow-lg shadow-lg backdrop-blur-lg my-12 flex flex-col justify-center"
+            >
               <div className="w-full flex items-center justify-between ">
                 <motion.img
                   whileHover={{ scale: 1.2 }}
                   src={item.imageURL}
                   alt=""
-                  className="w-40 -mt-8 drop-shadow-xl h-30 md:h-[160px]"
+                  className="w-40 -mt-8 drop-shadow-xl md:h-[160px]"
                 />
                 <motion.div
                   whileTap={{ scale: 0.75 }}
@@ -39,15 +42,15 @@ const RowContainer = ({ flag, data, scrollValue }) => {
               </div>
               <div className="w-full flex flex-col  items-end justify-end">
                 <p className="text-textColor mt-1 text-base font-semibold md:text-lg">
-                  {item.title}
+                  {item?.title}
                 </p>
                 <p className="mt-1 text-sm text-gray-500">
                   {item?.calories} calories
                 </p>
                 <div className="flex items-center gap-4 ">
                   <p className="text-lg text-headingColor font-semibold ">
-                    <span className="text-sm text-red-500">₹</span>
-                    {item.price}
+                    <span className="text-sm text-red-500">₹ </span>
+                    {item?.price}
                   </p>
                 </div>
               </div>
