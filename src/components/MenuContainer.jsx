@@ -65,7 +65,7 @@ const MenuContainer = () => {
 
         <div className="w-full ">
           <RowContainer flag={false} data={foodItems?.filter(item => item.category.toLowerCase() === filter.toLowerCase())} />
-        </div>
+         </div>
       </section>
     </>
   )

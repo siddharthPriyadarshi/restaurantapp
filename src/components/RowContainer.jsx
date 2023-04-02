@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion'
 import React, { useEffect, useRef } from 'react'
 import { MdShoppingBasket } from 'react-icons/md'
+import NotFound from '../img/NotFound.svg'
 
 const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
   console.log('Row Container Data: ', data)
   const scrollContainer = useRef()
 
-  useEffect(() => scrollContainer.current.scrollLeft += scrollValue, [
+  useEffect(() => (scrollContainer.current.scrollLeft += scrollValue), [
     scrollValue,
   ])
 
@@ -17,22 +18,27 @@ const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
         className={`bg-rowBg w-full my-12 flex items-center gap-5 scroll-smooth ${
           flag
             ? 'overflow-x-scroll scrollbar-none'
-            : 'overflow-x-hidden flex-wrap justify-around'
+            : 'overflow-x-hidden flex-wrap justify-center'
         }`}
       >
-        {data &&
+        {console.log("data: ", data)}
+        {data?.length ? (
           data.map((item) => (
             <div
               key={item?.id}
               className="bg-cardOverlay  w-[275px] min-w-[275px] md:min-w-[300px]  rounded-lg py-2 px-4 md:w-300 drop-shadow-lg shadow-lg backdrop-blur-lg my-12 flex flex-col justify-center"
             >
               <div className="w-full flex items-center justify-between ">
-                <motion.img
+                <motion.div
                   whileHover={{ scale: 1.2 }}
-                  src={item.imageURL}
-                  alt=""
-                  className="w-40 -mt-8 drop-shadow-xl md:h-[160px]"
-                />
+                  className="w-40 h-40 -mt-8 drop-shadow-2xl"
+                >
+                  <img
+                    src={item.imageURL}
+                    alt=""
+                    className=" w-full h-full object-contain"
+                  />
+                </motion.div>
                 <motion.div
                   whileTap={{ scale: 0.75 }}
                   className="w-8 h-8 rounded-full bg-red-600 cursor-pointer hover:shadow-md flex items-center justify-center"
@@ -55,7 +61,13 @@ const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
                 </div>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <div className="w-full flex items-center flex-col justify-center">
+            <img src={NotFound} alt="NotFound" className='w-80 h-auto'/>
+            <p className = "text-xl font-headingColor font-semibold my-2">Items not found</p>
+          </div>
+        )}
       </div>
     </>
   )
