@@ -50,6 +50,7 @@ const CartContainer = () => {
               src="https://firebasestorage.googleapis.com/v0/b/restaurantapp-4e24e.appspot.com/o/Images%2F1680362649547-f6.png?alt=media&token=7c02dd33-f8a0-463b-92ff-a76c9a062486"
               alt="cart item img"
               className="w-20 h-20 max-w-[60px] rounded-full object-contain"
+              onClick ={()=>console.log("add to cart item clicked !!")}
             />
 
             {/* name section */}
