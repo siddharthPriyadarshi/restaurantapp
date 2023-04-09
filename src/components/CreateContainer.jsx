@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import {
-  MdFastfood,
-  MdCloudUpload,
-  MdDelete,
-  MdFoodBank,
-  MdAttachMoney,
-} from 'react-icons/md'
+import { MdFastfood, MdCloudUpload, MdDelete, MdFoodBank } from 'react-icons/md'
+
+import { TbCurrencyRupee } from 'react-icons/tb'
 import Loader from './Loader'
 import { categories } from '../utils/data'
 import {
@@ -16,7 +12,9 @@ import {
   uploadBytesResumable,
 } from 'firebase/storage'
 import { storage } from '../firebase.config'
-import { saveItem } from '../utils/firebaseFunctions'
+import { getAllFoodItems, saveItem } from '../utils/firebaseFunctions'
+import { useStateValue } from './context/StateProvider'
+import { actionType } from './context/reducer'
 
 const CreateContainer = () => {
   const [title, setTitle] = useState('')
@@ -28,6 +26,7 @@ const CreateContainer = () => {
   const [msg, setMsg] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [imageAsset, setImageAsset] = useState(null)
+  const [{ foodItems }, dispatch] = useStateValue()
 
   const uploadImage = (e) => {
     setIsLoading(true)
@@ -102,6 +101,7 @@ const CreateContainer = () => {
           category: category,
           qty: 1,
           price: price,
+          calories: calories,
         }
 
         saveItem(data)
@@ -112,6 +112,9 @@ const CreateContainer = () => {
         console.log('Data uploaded Successfully')
         setAlertStatus('success')
         clearData()
+
+        fetchData()
+
         setTimeout(() => {
           setFields(false)
         }, 4000)
@@ -133,7 +136,17 @@ const CreateContainer = () => {
     setImageAsset(null)
     setCalories('')
     setPrice('')
-    setCalories('select Category')
+    setCategory('select Category')
+  }
+
+  const fetchData = async () => {
+    await getAllFoodItems().then((data) => {
+      console.log(data)
+      dispatch({
+        type: actionType.SET_FOOD_ITEMS,
+        foodItems: data,
+      })
+    })
   }
 
   return (
@@ -247,7 +260,7 @@ const CreateContainer = () => {
           </div>
 
           <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-            <MdAttachMoney className="text-gray-700 text-2xl" />
+            <TbCurrencyRupee className="text-gray-700 text-2xl" />
             <input
               type="text"
               value={price}
