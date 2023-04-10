@@ -5,12 +5,13 @@ import NotFound from '../img/NotFound.svg'
 import { useStateValue } from './context/StateProvider'
 
 const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
-  console.log('Row Container Data: ', data)
+  // console.log('Row Container Data: ', data)
   const scrollContainer = useRef()
 
-  useEffect(() => (scrollContainer.current.scrollLeft += scrollValue), [
-    scrollValue,
-  ])
+  useEffect(() => {
+    scrollContainer.current.scrollLeft += scrollValue
+    return;
+  }, [scrollValue])
 
   const [{ cartItem }, dispatch] = useStateValue()
   const [items, setItems] = useState([])
@@ -22,7 +23,7 @@ const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
     localStorage.setItem('cartItems', JSON.stringify(items))
   }
 
-  useEffect(() => addToCart(), [items])
+  useEffect(() =>{ addToCart()}, [items])
 
   return (
     <>
@@ -34,7 +35,7 @@ const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
             : 'overflow-x-hidden flex-wrap justify-center'
         }`}
       >
-        {console.log('data: ', data)}
+        {/* {console.log('data: ', data)} */}
         {data?.length ? (
           data.map((item) => (
             <div

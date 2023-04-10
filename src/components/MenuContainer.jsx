@@ -8,7 +8,7 @@ import RowContainer from './RowContainer'
 const MenuContainer = () => {
   const [filter, setFilter] = useState('Chicken')
   const [{ foodItems }, dispatch] = useStateValue()
-  console.log('Food Items in Menu Container: ', foodItems)
+  // console.log('Food Items in Menu Container: ', foodItems)
 
   return (
     <>

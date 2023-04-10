@@ -71,7 +71,7 @@ const HomeContainer = () => {
                   {item.desc}
                 </p>
 
-                <p classname="text-sm font-semibold text-headingColor">
+                <p className="text-sm font-semibold text-headingColor">
                   <span className="text-xs text-red-600">₹ </span>
                   {item.price}
                 </p>

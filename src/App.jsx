@@ -12,7 +12,7 @@ const App = () => {
 
   const fetchData = async () => {
     await getAllFoodItems().then((data) => {
-      console.log('food items data : ', data)
+      // console.log('food items data : ', data)
       dispatch({
         type: actionType.SET_FOOD_ITEMS,
         foodItems: data,
@@ -22,6 +22,7 @@ const App = () => {
 
   useEffect(() => {
     fetchData()
+    return;
   }, [])
   return (
     <AnimatePresence mode="wait">
