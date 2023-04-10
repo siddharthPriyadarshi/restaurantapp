@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { MdShoppingBasket } from 'react-icons/md'
 import NotFound from '../img/NotFound.svg'
+import { useStateValue } from './context/StateProvider'
 
 const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
   console.log('Row Container Data: ', data)
@@ -10,6 +11,18 @@ const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
   useEffect(() => (scrollContainer.current.scrollLeft += scrollValue), [
     scrollValue,
   ])
+
+  const [{ cartItem }, dispatch] = useStateValue()
+  const [items, setItems] = useState([])
+  const addToCart = () => {
+    dispatch({
+      type: 'SET_CARTITEMS',
+      cartItem: items,
+    })
+    localStorage.setItem('cartItems', JSON.stringify(items))
+  }
+
+  useEffect(() => addToCart(), [items])
 
   return (
     <>
@@ -21,7 +34,7 @@ const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
             : 'overflow-x-hidden flex-wrap justify-center'
         }`}
       >
-        {console.log("data: ", data)}
+        {console.log('data: ', data)}
         {data?.length ? (
           data.map((item) => (
             <div
@@ -42,6 +55,7 @@ const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
                 <motion.div
                   whileTap={{ scale: 0.75 }}
                   className="w-8 h-8 rounded-full bg-red-600 cursor-pointer hover:shadow-md flex items-center justify-center"
+                  onClick={() => setItems([...cartItem, item])}
                 >
                   <MdShoppingBasket className="text-white" />
                 </motion.div>
@@ -64,8 +78,10 @@ const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
           ))
         ) : (
           <div className="w-full flex items-center flex-col justify-center">
-            <img src={NotFound} alt="NotFound" className='w-80 h-auto'/>
-            <p className = "text-xl font-headingColor font-semibold my-2">Items not found</p>
+            <img src={NotFound} alt="NotFound" className="w-80 h-auto" />
+            <p className="text-xl font-headingColor font-semibold my-2">
+              Items not found
+            </p>
           </div>
         )}
       </div>
