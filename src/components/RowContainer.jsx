@@ -10,11 +10,11 @@ const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
 
   useEffect(() => {
     scrollContainer.current.scrollLeft += scrollValue
-    return;
+    return
   }, [scrollValue])
 
   const [{ cartItem }, dispatch] = useStateValue()
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([cartItem])
   const addToCart = () => {
     dispatch({
       type: 'SET_CARTITEMS',
@@ -23,7 +23,9 @@ const RowContainer = ({ flag, data, scrollValue, setScrollValue }) => {
     localStorage.setItem('cartItems', JSON.stringify(items))
   }
 
-  useEffect(() =>{ addToCart()}, [items])
+  useEffect(() => {
+    addToCart()
+  }, [items])
 
   return (
     <>
