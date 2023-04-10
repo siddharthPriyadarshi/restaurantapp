@@ -31,11 +31,11 @@ const CreateContainer = () => {
   const uploadImage = (e) => {
     setIsLoading(true)
     const imageFile = e.target.files[0]
-    console.log(imageFile)
+    // console.log(imageFile)
 
     const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`)
     const uploadTask = uploadBytesResumable(storageRef, imageFile)
-    console.log('upload Task: ', uploadTask)
+    // console.log('upload Task: ', uploadTask)
     uploadTask.on(
       'state_changed',
       (snapshot) => {
@@ -141,7 +141,7 @@ const CreateContainer = () => {
 
   const fetchData = async () => {
     await getAllFoodItems().then((data) => {
-      console.log(data)
+      // console.log(data)
       dispatch({
         type: actionType.SET_FOOD_ITEMS,
         foodItems: data,

@@ -15,7 +15,7 @@ const Header = () => {
   const firebaseAuth = getAuth(app)
   const provider = new GoogleAuthProvider()
 
-  const [{ user, cartShow}, dispatch] = useStateValue()
+  const [{ user, cartShow, cartItem }, dispatch] = useStateValue()
 
   const [isMenu, setIsMenu] = useState(false)
 
@@ -36,8 +36,8 @@ const Header = () => {
 
   const logout = () => {
     // Hide the menu, update context or state and clear the local storage
-    setIsMenu(false);
-    localStorage.clear();
+    setIsMenu(false)
+    localStorage.clear()
     dispatch({
       type: actionType.SET_USER,
       user: null,
@@ -81,11 +81,18 @@ const Header = () => {
             </li>
           </motion.ul>
 
-          <div className="relative flex items-center justify-center" onClick = {showCart}>
+          <div
+            className="relative flex items-center justify-center"
+            onClick={showCart}
+          >
             <MdShoppingBasket className="text-textColor text-2xl cursor-pointer" />
-            <div className=" absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
-              <p className="text-xs text-white font-semibold">2</p>
-            </div>
+            {cartItem && cartItem.length > 0 && (
+              <div className=" absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
+                <p className="text-xs text-white font-semibold">
+                  {cartItem.length}
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="relative">
@@ -106,8 +113,10 @@ const Header = () => {
               >
                 {user && user.email === 'development.testmail123@gmail.com' && (
                   <Link to={'/createItem'}>
-                    <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base"
-                    onClick={() => setIsMenu(false)}>
+                    <p
+                      className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base"
+                      onClick={() => setIsMenu(false)}
+                    >
                       New Item <MdAdd />
                     </p>
                   </Link>
@@ -127,11 +136,15 @@ const Header = () => {
       {/*Mobile View */}
       <div className="flex md:hidden p-4 items-center justify-between">
         {/* Navabar Logo */}
-        <div className="relative flex items-center" onClick={cartShow}>
+        <div className="relative flex items-center" onClick={showCart}>
           <MdShoppingBasket className="text-textColor text-2xl cursor-pointer" />
-          <div className=" absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
-            <p className="text-xs text-white font-semibold">2</p>
-          </div>
+          {cartItem && cartItem.length > 0 && (
+            <div className=" absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
+              <p className="text-xs text-white font-semibold">
+                {cartItem.length}
+              </p>
+            </div>
+          )}
         </div>
 
         <Link to={'/'} className="flex items-center gap-2">
